@@ -143,32 +143,32 @@ const DSProblemTracker = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 sm:p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 mb-4">
+                <div className="text-center mb-8 sm:mb-12">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 mb-2 sm:mb-4">
                         Pattern Wise DSA Questions
                     </h1>
                     
                 </div>
 
                 {/* Add New Pattern */}
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-8 border border-white/20 shadow-2xl">
-                    <div className="flex gap-3">
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-white/20 shadow-2xl">
+                    <div className="flex flex-col sm:flex-row gap-3">
                         <input
                             type="text"
                             value={newPatternName}
                             onChange={(e) => setNewPatternName(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && addPattern()}
                             placeholder="Add new pattern (e.g., Dynamic Programming)"
-                            className="flex-1 px-6 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="flex-1 px-4 sm:px-6 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                         />
                         <button
                             onClick={addPattern}
-                            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2"
+                            className="px-6 sm:px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
                         >
-                            <Plus size={20} /> Add Pattern
+                            <Plus size={20} /> <span className="hidden sm:inline">Add Pattern</span><span className="sm:hidden">Add</span>
                         </button>
                     </div>
                 </div>
@@ -183,18 +183,18 @@ const DSProblemTracker = () => {
                             <div key={pattern._id} className="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 shadow-2xl overflow-hidden">
                                 {/* Pattern Header */}
                                 <div
-                                    className={`bg-gradient-to-r ${gradients[index % gradients.length]} p-6 cursor-pointer hover:opacity-90 transition-all`}
+                                    className={`bg-gradient-to-r ${gradients[index % gradients.length]} p-4 sm:p-6 cursor-pointer hover:opacity-90 transition-all`}
                                     onClick={() => setExpandedPattern(expandedPattern === pattern._id ? null : pattern._id)}
                                 >
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-4">
-                                            <h2 className="text-3xl font-bold text-white">{pattern.name}</h2>
-                                            <div className="bg-white/20 px-4 py-1 rounded-full">
-                                                <span className="text-white font-semibold">{stats.solved}/{stats.total}</span>
+                                    <div className="flex items-center justify-between gap-2">
+                                        <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+                                            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{pattern.name}</h2>
+                                            <div className="bg-white/20 px-2 sm:px-4 py-1 rounded-full">
+                                                <span className="text-white font-semibold text-sm sm:text-base">{stats.solved}/{stats.total}</span>
                                             </div>
                                             {stats.total > 0 && (
-                                                <div className="bg-white/20 px-4 py-1 rounded-full">
-                                                    <span className="text-white font-semibold">{stats.percentage}%</span>
+                                                <div className="bg-white/20 px-2 sm:px-4 py-1 rounded-full">
+                                                    <span className="text-white font-semibold text-sm sm:text-base">{stats.percentage}%</span>
                                                 </div>
                                             )}
                                         </div>
@@ -203,9 +203,9 @@ const DSProblemTracker = () => {
                                                 e.stopPropagation();
                                                 deletePattern(pattern._id);
                                             }}
-                                            className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all"
+                                            className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all flex-shrink-0"
                                         >
-                                            <Trash2 size={20} className="text-white" />
+                                            <Trash2 size={18} className="text-white sm:w-5 sm:h-5" />
                                         </button>
                                     </div>
                                     {stats.total > 0 && (
@@ -220,11 +220,79 @@ const DSProblemTracker = () => {
 
                                 {/* Problems List */}
                                 {expandedPattern === pattern._id && (
-                                    <div className="p-6">
+                                    <div className="p-4 sm:p-6">
                                         <div className="space-y-3 mb-4">
                                             {patternProblems.map(problem => (
-                                                <div key={problem._id} className="bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all">
-                                                    <div className="grid grid-cols-12 gap-3 items-center">
+                                                <div key={problem._id} className="bg-white/5 rounded-xl p-3 sm:p-4 border border-white/10 hover:bg-white/10 transition-all">
+                                                    {/* Mobile Layout */}
+                                                    <div className="flex flex-col gap-3 md:hidden">
+                                                        <div className="flex items-center gap-3">
+                                                            {/* Solved Checkbox */}
+                                                            <button
+                                                                onClick={() => toggleSolved(problem._id)}
+                                                                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all flex-shrink-0 ${problem.solved
+                                                                    ? 'bg-green-500 shadow-lg shadow-green-500/50'
+                                                                    : 'bg-white/10 border border-white/20'
+                                                                    }`}
+                                                            >
+                                                                {problem.solved ? (
+                                                                    <Check size={18} className="text-white" />
+                                                                ) : (
+                                                                    <X size={18} className="text-gray-400" />
+                                                                )}
+                                                            </button>
+                                                            
+                                                            {/* Problem Name */}
+                                                            <input
+                                                                type="text"
+                                                                value={problem.name}
+                                                                onChange={(e) => updateProblem(problem._id, 'name', e.target.value)}
+                                                                placeholder="Problem name"
+                                                                className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                                            />
+                                                            
+                                                            {/* Delete Button */}
+                                                            <button
+                                                                onClick={() => deleteProblem(problem._id)}
+                                                                className="p-2 bg-red-500/20 rounded-lg hover:bg-red-500/30 transition-all flex-shrink-0"
+                                                            >
+                                                                <Trash2 size={16} className="text-red-400" />
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        {/* Link */}
+                                                        <div className="flex gap-2">
+                                                            <input
+                                                                type="text"
+                                                                value={problem.link}
+                                                                onChange={(e) => updateProblem(problem._id, 'link', e.target.value)}
+                                                                placeholder="Problem URL"
+                                                                className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                                            />
+                                                            {problem.link && (
+                                                                <a
+                                                                    href={problem.link}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="p-2 bg-blue-500 rounded-lg hover:bg-blue-600 transition-all flex-shrink-0"
+                                                                >
+                                                                    <ExternalLink size={16} className="text-white" />
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                        
+                                                        {/* Notes */}
+                                                        <input
+                                                            type="text"
+                                                            value={problem.notes || ''}
+                                                            onChange={(e) => updateProblem(problem._id, 'notes', e.target.value)}
+                                                            placeholder="Notes / Hints"
+                                                            className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                                        />
+                                                    </div>
+
+                                                    {/* Desktop Layout */}
+                                                    <div className="hidden md:grid md:grid-cols-12 gap-3 items-center">
                                                         {/* Solved Checkbox */}
                                                         <div className="col-span-1 flex justify-center">
                                                             <button
