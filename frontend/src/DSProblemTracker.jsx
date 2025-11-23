@@ -3,7 +3,8 @@ import { Check, X, Plus, Trash2, ExternalLink } from 'lucide-react';
 import axios from 'axios';
 
 const DSProblemTracker = () => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    // Use relative URL in production, localhost in development
+    const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
     
     const [patterns, setPatterns] = useState([]);
     const [problems, setProblems] = useState([]);
